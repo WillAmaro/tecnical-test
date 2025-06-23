@@ -1,0 +1,75 @@
+﻿@page "/registrar-tarea"
+@page "/registrar-tarea/{Id}"
+@inherits BlazorTecnicalTest.Logic.TaskForm
+@* @rendermode InteractiveServer
+ *@
+
+@rendermode InteractiveServer
+ @using System.ComponentModel.DataAnnotations
+
+
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+    <div class="bg-white border border-gray-300 rounded-lg shadow-lg p-8 w-full max-w-md">
+        <div class="flex flex-col justify-center mb-4 items-center">
+            <img src="https://lpsgrupo.com/wp-content/uploads/2023/07/Mesa-de-trabajo-1@2x-2.png"
+                 alt="Logo"
+                 style="width: 100px; height: 100px;" />
+           
+      
+        </div>
+
+        <div class="mb-4 ">
+            <label class="block mb-2 text-sm font-medium text-gray-900">@(IsEdit ? "Editar Tarea" : "Agregar nueva Tarea")</label>
+        </div>
+<EditForm Model="@formModel" OnValidSubmit="@Guardar" FormName="RegisterTask" novalidate>
+    <DataAnnotationsValidator />
+
+
+    
+            <div class="mb-4 ">
+        <label class="block mb-2 text-sm font-medium text-gray-900 ">Título</label>
+        <InputText @bind-Value="formModel.Titulo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ingresar nombre" />
+        <ValidationMessage For="@(() => formModel.Titulo)" style="color: red; font-weight: bold; font-size: 12px;" />
+            </div>
+
+
+
+    <div class="mb-4">
+                <label class="block mb-2 text-sm font-medium text-gray-900 ">Descripcion</label>
+                <InputTextArea 
+                    @bind-Value="formModel.Descripcion"
+                    placeholder="Escribir una descripción..."
+                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+        <ValidationMessage For="@(() => formModel.Descripcion)" style="color: red; font-weight: bold; font-size: 12px;" />
+
+    </div>
+
+
+  
+
+
+    <div class="mb-4">
+        <label class="block mb-2 text-sm font-medium text-gray-900">Estado</label>
+                <InputSelect class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" @bind-Value="formModel.Estado">
+            <option>Pendiente</option>
+            <option>Completado</option>
+        </InputSelect>
+        <ValidationMessage For="@(() => formModel.Estado)" style="color: red; font-weight: bold; font-size: 12px;" />
+
+    </div>
+
+    <div class="flex d-inline-flex gap-2 w-full">
+
+
+                <button type="submit" class=" bg-blue-600 text-white px-4 py-2 w-full rounded-lg cursor-pointer"
+                    style="border-radius: 0.5rem !important;  background:#21bbf3">
+                Guardar
+            </button>
+                <button type="button" class="bg-blue-600 text-white px-4 py-2 w-full rounded-lg cursor-pointer"
+                        style="border-radius: 0.5rem !important; background:#147ca3" @onclick='() => Navigation.NavigateTo("/", true)'>
+                Cancelar
+            </button>
+            </div>
+</EditForm>
+</div>
+</div>

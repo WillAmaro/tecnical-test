@@ -1,0 +1,48 @@
+﻿@page "/form-test"
+@rendermode InteractiveServer
+@using System.ComponentModel.DataAnnotations
+
+<h3>Test interactivo</h3>
+
+<EditForm Model="@formModel" OnValidSubmit="@Guardar" FormName="Formulario1">
+    <DataAnnotationsValidator />
+
+    <div>
+        <label>Nombre:</label>
+        <InputText @bind-Value="formModel.Nombre" />
+        <ValidationMessage For="@(() => formModel.Nombre)" />
+    </div>
+
+    <div>
+        <label>Email:</label>
+        <InputText @bind-Value="formModel.Email" />
+        <ValidationMessage For="@(() => formModel.Email)" />
+    </div>
+
+    <button type="submit">Enviar</button>
+</EditForm>
+
+@if (!string.IsNullOrWhiteSpace(mensaje))
+{
+    <p class="text-success">@mensaje</p>
+}
+
+@code {
+    private FormModel formModel = new();
+    private string mensaje = "";
+
+    private void Guardar()
+    {
+        mensaje = $"Recibido: {formModel.Nombre}, {formModel.Email}";
+    }
+
+    public class FormModel
+    {
+        [Required(ErrorMessage = "Nombre obligatorio")]
+        public string Nombre { get; set; } = "";
+
+        [Required(ErrorMessage = "Email obligatorio")]
+        [EmailAddress(ErrorMessage = "Email inválido")]
+        public string Email { get; set; } = "";
+    }
+}

@@ -1,0 +1,56 @@
+﻿@page "/registro-usuario"
+@using System.ComponentModel.DataAnnotations
+@inherits BlazorTecnicalTest.Logic.Register
+@rendermode InteractiveServer
+
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+    <div class="bg-white border border-gray-300 rounded-lg shadow-lg p-8 w-full max-w-md">
+        <div class="flex justify-center mb-4">
+            <img src="https://lpsgrupo.com/wp-content/uploads/2023/07/Mesa-de-trabajo-1@2x-2.png"
+                 alt="Logo"
+                 style="width: 100px; height: 100px;" />
+        </div>
+
+        <EditForm Model="@formModel" OnValidSubmit="@HandleValidSubmit" FormName="RegisterForm" novalidate>
+            <DataAnnotationsValidator />
+            <div class="mb-4 ">
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Completa tus datos para que puedas registrarte correctamente</label>
+            </div>
+
+
+            <div class="mb-4 ">
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
+                <InputText @bind-Value="formModel.NombreCompleto" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ingresar nombre" />
+                <ValidationMessage For="@(() => formModel.NombreCompleto)" style="color: red; font-weight: bold; font-size: 12px;" />
+            </div>
+
+
+
+            <div class="mb-4">
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Correo electrónico</label>
+                <InputText @bind-Value="formModel.Email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ingresar email" />
+                <ValidationMessage For="@(() => formModel.Email)" style="color: red; font-weight: bold; font-size: 12px;" />
+            </div>
+
+            <div class="mb-4">
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
+                <InputText @bind-Value="formModel.Password" type="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                <ValidationMessage For="@(() => formModel.Password)" style="color: red; font-weight: bold; font-size: 12px;" />
+            </div>
+
+            <div class="mb-4">
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirmar contraseña</label>
+                <InputText @bind-Value="formModel.ConfirmarPassword" type="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                <ValidationMessage For="@(() => formModel.ConfirmarPassword)" style="color: red; font-weight: bold; font-size: 12px;" />
+            </div>
+
+            <button type="submit"
+                    class="bg-blue-600 text-white px-4 py-2 w-full border border-gray-300 rounded-lg cursor-pointer"
+                    style="border-radius: 0.5rem !important; font-weight:bold ; background:#21bbf3">
+                Registrar
+            </button>
+
+        </EditForm>
+    </div>
+
+</div>

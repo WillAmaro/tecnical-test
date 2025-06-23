@@ -1,0 +1,91 @@
+﻿@page "/usuarios"
+@inherits BlazorTecnicalTest.Logic.UserListBase
+@rendermode InteractiveServer
+
+<div class="flex flex-col gap-10">
+    <div class="flex items-center justify-center p-5">
+        <div class="bg-white rounded-lg shadow-lg">
+            <div class="flex flex-col justify-center items-center">
+                <img src="https://lpsgrupo.com/wp-content/uploads/2023/07/Mesa-de-trabajo-1@2x-2.png"
+                     alt="Logo"
+                     style="width: 100px; height: 100px;" />
+            </div>
+        </div>
+    </div>
+
+    <div class="flex w-[90%] mx-auto">
+        <button @onclick="Crear" class="bg-blue-500 text-white px-2 py-1 rounded w-auto cursor-pointer">
+            Crear nuevo usuario
+        </button>
+    </div>
+
+    @if (usuarios is null)
+{
+        <div class="w-[90%] mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
+        <p>Cargando usuarios...</p>
+        </div>
+    }
+    else if (!usuarios.Any())
+    {
+        <div class="w-[90%] mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
+        <p>No hay usuarios registrados.</p>
+        </div>
+    }
+    else
+    {
+        <div class="w-[90%] mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th class="px-6 py-3 text-center">Nombre</th>
+                        <th class="px-6 py-3 text-center">Email</th>
+                       
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var usuario in PagedUsuarios)
+                    {
+                        <tr class="border-b border-gray-200 odd:bg-white even:bg-gray-50 hover:bg-gray-100 transition duration-150">
+                            <td class="px-6 py-4 text-center font-medium text-gray-900 whitespace-nowrap ">
+                                @usuario.Nombre
+                            </td>
+                            <td class="px-6 py-4 text-center">@usuario.Email</td>
+                         
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+<div class="flex justify-center mt-4 space-x-2">
+
+
+                        @if (TotalPages > 1)
+{
+        <button class="px-3 py-1 bg-gray-300 rounded disabled:opacity-50"
+                @onclick="() => ChangePage(CurrentPage - 1)"
+                disabled="@((CurrentPage == 1))">
+            Anterior
+        </button>
+
+        }
+    @for (int i = 1; i <= TotalPages; i++)
+    {
+        var pageNumber = i;  // captura local de la variable
+
+        <button class="px-3 py-1 rounded @(pageNumber == CurrentPage ? "bg-blue-500 text-white" : "bg-gray-200")"
+                @onclick="() => ChangePage(pageNumber)">
+            @pageNumber
+        </button>
+    }
+    
+        @if (TotalPages > 1)
+{
+        <button class="px-3 py-1 bg-gray-300 rounded disabled:opacity-50"
+                @onclick="() => ChangePage(CurrentPage + 1)"
+                disabled="@((CurrentPage == TotalPages))">
+            Siguiente
+        </button>
+}
+    </div>
